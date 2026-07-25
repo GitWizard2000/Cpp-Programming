@@ -108,14 +108,97 @@ void reverseLevelOrderTraversal(Node* root)
     std::cout << endl;
 }
 
+void inOrderTraversal(Node* root)
+{
+    //Base case
+    if(root == nullptr)
+        return;
+    
+    inOrderTraversal(root->left);
+    cout <<root->data <<" ";
+    inOrderTraversal(root->right);
+}
+
+void preOrderTraversal(Node* root)
+{
+    //Base case
+    if(root == nullptr)
+        return;
+    
+    cout <<root->data <<" ";
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
+}
+
+void postOrderTraversal(Node* root)
+{
+    //Base case
+    if(root == nullptr)
+        return;
+    
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    cout <<root->data <<" ";
+}
+
+void buildFromLevelOrderTraversal(Node* &root)
+{
+    queue<Node*> q;
+    int data;
+    cout <<"Enter data of root node: "<<endl;
+    cin >> data;
+    root = new Node(data);
+    q.push(root);
+
+    while(!q.empty())
+    {
+        Node* temp = q.front();
+        q.pop();
+
+        int leftData;
+        cout <<"Enter data of left node of "<<temp->data<<endl;
+        cin >> leftData;
+        if(leftData != -1)
+        {
+            temp->left = new Node(leftData);
+            q.push(temp->left);
+        }
+
+        int rightData;
+        cout <<"Enter data of right node of "<<temp->data<<endl;
+        cin >> rightData;
+        if(rightData != -1)
+        {
+            temp->right = new Node(rightData);
+            q.push(temp->right);
+        }
+    }
+}
+
+
+//H.W.: Write functions for inorder, preorder and postorder traversal approach using iteration (using queue and stack)
 int main() {
     Node* root = nullptr;
 
-    root = BuildTree(root);
+    // root = BuildTree(root);
 
+    // cout<<"Level Order Traversal"<<endl;
+    // levelOrderTraversal(root);
+
+    // cout <<"Reverse Order Traversal"<<endl;
+    // reverseLevelOrderTraversal(root);
+
+    // cout << "In Order Traversal" << endl;
+    // inOrderTraversal(root);
+
+    // cout << "Pre Order Traversal" << endl;
+    // preOrderTraversal(root);
+
+    // cout << "Post Order Traversal" << endl;
+    // postOrderTraversal(root);
+
+    buildFromLevelOrderTraversal(root);
     levelOrderTraversal(root);
-
-    reverseLevelOrderTraversal(root);
 
     return 0;
 }
